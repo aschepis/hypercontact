@@ -1,0 +1,8 @@
+Hypercontact
+------------
+
+A very simple REST API used to demonstrate how API testing works using Cloud Assault.
+
+The API is used to maintain a list of contacts and doesn't do much else. To get started
+just GET / and then check out the Link header for an idea of where to go next to get a
+list of all contacts.

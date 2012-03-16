@@ -10,6 +10,19 @@ Mongoid.configure do |config|
 end
 
 get '/' do
+  html = <<-eos
+      <html>
+        <head>
+          <title>Hypercontact</title>
+        </head>
+        <body>
+          <p>
+            This is a very simple example REST API (source code <a href="http://github.com/aschepis/hypercontact">here</a>)
+            that was built to show how load testing an API works using <a href="https://www.cloudassault.com">Cloud Assault</a>
+          </p>
+        </body>
+      </html>
+    eos
   return [200, {'Link' => 'http://hypercontact.heroku.com/contacts; rel=contacts'},'']
 end
 
