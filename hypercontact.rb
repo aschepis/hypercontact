@@ -27,7 +27,9 @@ get '/' do
 end
 
 get '/contacts' do
-  [200, {'Content-Type' => 'application/vnd.hypercontact-list+json'}, (Contact.all.map {|c| c.extend(ContactRepresenter)}).to_json]
+  # todo: is there a better way to do arrays w/ roar gem?
+  contacts_json = Contact.all.map {|c| c.extend(ContactRepresenter).to_json}
+  [200, {'Content-Type' => 'application/vnd.hypercontact-list+json'}, '[' + contacts_json.join(',') + ']' ]
 end
 
 post '/contacts' do
@@ -41,6 +43,14 @@ get '/contacts/:id' do
   
   return [200, {'Content-Type' => 'application/vnd.hypercontact+json'}, contact.to_json] unless contact.nil?
   [404, {'Content-Type' => 'application/vnd.hypercontact-error+json'}, '{"error":"not found"}']
+end
+
+put '/contacts/:id' do
+  contact = Contact.where(:_id => params['id']).first.extend(ContactRepresenter)
+  return [404, {'Content-Type' => 'application/vnd.hypercontact-error+json'}, '{"error":"not found"}'] if contact.nil?
+  
+  contact.update(JSON.parse request.body.read)
+  return [200, {'Content-Type' => 'application/vnd.hypercontact+json'}, contact.to_json] unless contact.nil?  
 end
 
 delete '/contacts/:id' do
