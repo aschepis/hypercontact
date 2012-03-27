@@ -1,0 +1,7 @@
+{
+    "name":"Peter Parker",
+    "address":"1 Two Three Lane",
+    "city":"Palo Alto",
+    "state":"CA",
+    "notes":"created during a Cloud Assault load test"
+ }
