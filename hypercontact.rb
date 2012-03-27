@@ -29,7 +29,7 @@ end
 get '/contacts' do
   # todo: is there a better way to do arrays w/ roar gem?
   contacts_json = Contact.all.map {|c| c.extend(ContactRepresenter).to_json}
-  [200, {'Content-Type' => 'application/vnd.hypercontact-list+json'}, '[' + contacts_json.join(',') + ']' ]
+  [200, {'Content-Type' => 'application/vnd.hypercontact-list+json', 'Link' => 'http://hypercontact.heroku.com/contacts; rel=new'}, '[' + contacts_json.join(',') + ']' ]
 end
 
 post '/contacts' do
